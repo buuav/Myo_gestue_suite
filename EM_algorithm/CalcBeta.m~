@@ -1,0 +1,8 @@
+function Beta = CalcBeta(p0, P, Mu, R, Y)
+T = length(Y(:,1));
+n = length(p0);
+
+Beta(T,:) = ones(1,n);
+for t = T-1:-1:1
+            Beta(t,:) = Beta(t+1,:)*diag(Normal(Y(t+1), Mu, R, 1))*P;
+end

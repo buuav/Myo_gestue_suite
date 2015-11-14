@@ -1,7 +1,7 @@
 clc;
 clear;
 
-t = tcpip('192.168.1.2', 3000,'NetworkRole','client');
+t = tcpip('128.197.50.236', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 i = 1;
@@ -11,7 +11,7 @@ wsize=fs/2;
 wind = 1;
 [b,a] = butter(6,0.5);
 
-while etime(clock,time)<100
+while etime(clock,time)<60
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
         data(i,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';

@@ -1,0 +1,16 @@
+function Pxx = CalcPx(Y, Alpha, Beta, P, Mu, R)
+
+T = length(Alpha(:,1));
+n = length(Alpha(1,:));
+Px = zeros(T, n);
+
+for t = 1:T
+    Pxt = (diag(Normal(Y(t+1,:)', Mu, R, n))*Beta(t+1,:)'*Alpha(t,:)).*P;
+    Pxt = reshape(Pxxt,1,n^2);
+    if Pxt~=zeros(1,n^2)
+        Pxt = Pxxt/sum(Pxxt,2);
+    else
+        Pxt = .5*ones(1,n^2);
+    end
+    Px(t,:) = Pxt;
+end 

@@ -1,0 +1,9 @@
+function Alpha = CalcAlpha(p0, P, Mu, R, Y)
+T = length(Y(:,1));
+n = length(p0);
+
+Alpha(1,:) = diag(Normal(Y(1,:)',Mu, R, 1))*p0;
+Alpha(T,:) = zeros(n,1); %this is required for fast running- allocates the necessary memory 
+for t = 2:T 
+    Alpha(t,:) = (diag(Normal(Y(t-1,:)', Mu, R, 1))*P*Alpha(t-1,:)')';
+end

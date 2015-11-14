@@ -1,0 +1,15 @@
+function [Mu, R, P] = Mstep(Px, Pxx, Y)
+
+T = length(Y(:,1));
+N = length(Y(1,:));
+n = length(Px(1,:));
+
+for i = 1:n
+    Mu{i} = sum((Px(:,i)*ones(1,N)).*Y)'/sum(Px(:,i));
+    Ydiff = (Y-ones(T,1)*Mu{i}');
+    for j = 1:N
+        R{i}(:,j) = sum((Px(:,i)*ones(1,N)).*(Ydiff(:,j)*ones(1,N)).*Ydiff)/sum(Px(:,i));
+    end
+end
+
+P = sum(Pxx)/sum(
