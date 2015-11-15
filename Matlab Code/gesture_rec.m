@@ -11,6 +11,9 @@ wsize=fs/2;
 wind = 1;
 [b,a] = butter(6,0.5);
 
+id = 'signal:findpeaks:largeMinPeakHeight';
+warning('off',id);
+
 while etime(clock,time)<60
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
