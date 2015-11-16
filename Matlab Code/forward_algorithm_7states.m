@@ -4,6 +4,7 @@ fopen(t);
 count = 1;
 time=clock;
 fs=200;
+
 %nor__OUT_FIST_In_spread
 while etime(clock,time)<48
     if t.BytesAvailable
