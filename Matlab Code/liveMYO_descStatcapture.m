@@ -1,7 +1,7 @@
 clc;
 clear;
 
-t = tcpip('128.197.50.71', 3000,'NetworkRole','client');
+t = tcpip('168.122.4.74', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 i = 1;
@@ -9,14 +9,14 @@ time=clock;
 fs=200;
 wsize=fs/2;
 wind = 1;
+o = 10;
 
-
-while etime(clock,time)<24
+while etime(clock,time)<100
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
         data(i,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
         [m,n]=size(data);
-        if ~mod(m,wsize)
+        if ~mod(m,o) && m > 99
             
 %             dataAvg(wind,:) = mean(data(m-wsize+1:m,:)^2);
 %             dataAvgd=dataAvg+128;
@@ -34,3 +34,5 @@ while etime(clock,time)<24
 end
 
 fclose(t);
+
+[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,4);
