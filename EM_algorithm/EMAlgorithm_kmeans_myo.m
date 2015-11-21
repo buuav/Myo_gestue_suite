@@ -1,8 +1,7 @@
 
 function [Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(Y,n)
 [a,N]=size(Y);
-Y=Y+128;
-Y=Y./256;
+
 %n = 5;%number of states
 p0 = .5*ones([n 1]);
 P=0.1*ones([n n]);
