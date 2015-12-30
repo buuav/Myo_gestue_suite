@@ -1,4 +1,4 @@
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 55000;
 var myo = require('myo');
 var net = require('net');
 
@@ -17,11 +17,8 @@ Myo.on('connected', function() {
         });
         client.on('error', console.log);
         
-        myMyo.omyMyo.on('emg', function(data, timestamp) {
-            client.write(data.join(',').concat('\r\n'));
-        });n('orientation', function(data, timestamp) {
-            myMyo.zeroOrientation();
-            console.log(myMyo.orientationOffset);  
+        myMyo.on('emg', function(data, timestamp) {
+            client.write(data.join(',').concat('\r\n'));  
         });
     }).listen(port, function() {
         console.log('TCP server listening for incoming connections on PORT: ' + port);

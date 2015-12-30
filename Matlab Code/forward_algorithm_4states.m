@@ -1,8 +1,6 @@
-clc;
-clear;
-load('7state_NFISpOPFin_joe_sd.mat');
 
-t = tcpip('168.122.4.74', 3000,'NetworkRole','client');
+load('4state_NFSI_aamodh_sd.mat');
+t = tcpip('192.168.1.100', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 count = 1;
@@ -26,7 +24,7 @@ while etime(clock,time)<50
             %             dataAvgd=dataAvgd./256;
             dataStd(wind,:) = std(data(m-wsize+1:m,:));
             Y=dataStd(wind,:)./128;
-            norml=diag(Normal(Y',Mu, R, 7));
+            norml=diag(Normal(Y',Mu, R, 4));
             %norml=norml/max(max(norml));
             if wind==1
                 Alpha(wind,:) = norml*p0;
