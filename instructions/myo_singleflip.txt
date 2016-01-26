@@ -1,0 +1,8 @@
+1. Connect MYO to Windows PC
+2. Load the training set 7state_NFIOPSnSp_aamodh.mat in HMM parameters
+3. Open LiveUAVControl.m
+4. Set Server port to match port on linux pc and client port to match windows pc
+5. Run streamEMG.js in myo-control-tcp-socket with port number according to matlab code.
+6. Run Matlab.
+7. On linux machine run myocontrol.js with correct port number.
+8. Enjoy.

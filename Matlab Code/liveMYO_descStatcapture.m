@@ -1,7 +1,7 @@
 clc;
 clear;
 
-t = tcpip('192.168.1.100', 3000,'NetworkRole','client');
+t = tcpip('128.197.50.13', 55000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 i = 1;
@@ -35,4 +35,4 @@ end
 
 fclose(t);
 
-[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,4);
+[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,5);

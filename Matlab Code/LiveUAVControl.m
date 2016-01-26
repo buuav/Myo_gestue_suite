@@ -11,7 +11,7 @@ tcpipServer = tcpip('0.0.0.0',55000,'NetworkRole','Server');
 set(tcpipServer,'OutputBufferSize',s.bytes);
 fopen(tcpipServer);
 
-t = tcpip('128.197.50.236', 3000,'NetworkRole','client');
+t = tcpip('128.197.50.13', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 count = 1;
@@ -21,6 +21,7 @@ fs=200;
 while etime(clock,time)<200
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
+        h='in the loop'
         raw_data(count,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
         Y=raw_data(count,:)+128;
         Y=Y./256;

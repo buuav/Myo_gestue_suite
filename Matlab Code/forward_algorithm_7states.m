@@ -1,4 +1,4 @@
-t = tcpip('128.197.50.236', 3000,'NetworkRole','client');
+t = tcpip('128.197.50.13', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 count = 1;

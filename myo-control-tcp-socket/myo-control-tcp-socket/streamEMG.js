@@ -1,4 +1,4 @@
-var port = process.env.PORT || 55000;
+var port = process.env.PORT || 3000;
 var myo = require('myo');
 var net = require('net');
 
