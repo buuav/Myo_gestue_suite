@@ -1,8 +1,14 @@
 
 load('5state_NFISO_aamodh_25Jan.mat');
-t = tcpip('0.0.0.0', 3000,'NetworkRole','client');
+
+t = tcpip('128.197.50.13', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
+
+tcpipServer = tcpip('0.0.0.0',55000,'NetworkRole','Server');
+%set(tcpipServer,'OutputBufferSize',s.bytes);
+fopen(tcpipServer);
+
 count = 1;
 time=clock;
 fs=200;
@@ -11,7 +17,7 @@ wind = 1;
 o = 10;
 
 %nor__OUT_FIST_In_spread
-while etime(clock,time)<50
+while etime(clock,time)<200
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
         data(count,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
@@ -33,7 +39,12 @@ while etime(clock,time)<50
                 Alpha(wind,:) = Alpha(wind,:)/mean(Alpha(wind,:));
             end
             
-            [value ,mystate]= max(Alpha(wind,:))
+            [value ,mystate(wind)]= max(Alpha(wind,:));
+            %if ~mod(count, 100)
+            %tempdata=mean(mystate(count-99:count));
+            data_out = num2str(mystate(wind))
+            fwrite(tcpipServer,data_out,'char');
+        %end
             wind = wind + 1;
         end
         count = count + 1;
@@ -41,7 +52,7 @@ while etime(clock,time)<50
 end
 
 fclose(t);
-
+fclose(tcpipServer);
 
 
 
