@@ -1,8 +1,8 @@
 
-load('5state_NFISO_aamodh_25Jan.mat');
-t = tcpip('0.0.0.0', 3000,'NetworkRole','client');
-set(t, 'InputBufferSize', 64);
-fopen(t);
+load('20160201T132726_NFUD_aam_feb1.mat');
+t1 = tcpip('128.197.50.79', 3000,'NetworkRole','client');
+set(t1, 'InputBufferSize', 400);
+fopen(t1);
 count = 1;
 time=clock;
 fs=200;
@@ -11,10 +11,11 @@ wind = 1;
 o = 10;
 
 %nor__OUT_FIST_In_spread
-while etime(clock,time)<50
-    if t.BytesAvailable
+%up_normal_fist_down
+while etime(clock,time)<200
+    if t1.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
-        data(count,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
+        data(count,:) = fscanf(t1, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
         [m,n]=size(data);
         %mod(m,wsize)
         if ~mod(m,o) && m > 99
@@ -24,7 +25,7 @@ while etime(clock,time)<50
             %             dataAvgd=dataAvgd./256;
             dataStd(wind,:) = std(data(m-wsize+1:m,:));
             Y=dataStd(wind,:)./128;
-            norml=diag(Normal(Y',Mu, R, 5));
+            norml=diag(Normal(Y',Mu, R, 4));
             %norml=norml/max(max(norml));
             if wind==1
                 Alpha(wind,:) = norml*p0;
@@ -40,7 +41,7 @@ while etime(clock,time)<50
     end
 end
 
-fclose(t);
+fclose(t1);
 
 
 

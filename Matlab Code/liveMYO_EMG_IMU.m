@@ -1,8 +1,8 @@
 clc;
 clear;
 
-t1 = tcpip('128.197.50.77', 10000,'NetworkRole','client');
-t2 = tcpip('128.197.50.77', 3000,'NetworkRole','client');
+t1 = tcpip('128.197.50.80', 10000,'NetworkRole','client');
+t2 = tcpip('128.197.50.80', 3000,'NetworkRole','client');
 set(t1, 'InputBufferSize', 400);
 set(t2, 'InputBufferSize', 400);
 fopen(t1);

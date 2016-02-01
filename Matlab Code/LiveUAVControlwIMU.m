@@ -64,6 +64,7 @@ while etime(clock,time)<200
         data = 0;
         
     end
+    
 end
 
 fclose(t);

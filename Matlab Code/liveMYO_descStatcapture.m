@@ -1,8 +1,8 @@
 clc;
 clear;
 
-t = tcpip('128.197.50.13', 55000,'NetworkRole','client');
-set(t, 'InputBufferSize', 64);
+t = tcpip('128.197.50.79', 3000,'NetworkRole','client');
+set(t, 'InputBufferSize', 400);
 fopen(t);
 i = 1;
 time=clock;
@@ -11,7 +11,7 @@ wsize=fs/2;
 wind = 1;
 o = 10;
 
-while etime(clock,time)<30
+while etime(clock,time)<36
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
         data(i,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
@@ -35,4 +35,7 @@ end
 
 fclose(t);
 
-[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,5);
+[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,4);
+imagesc(Px');
+varstr=horzcat(datestr(clock,30),'.mat');
+save(varstr);

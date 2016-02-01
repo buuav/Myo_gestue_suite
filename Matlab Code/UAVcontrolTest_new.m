@@ -1,7 +1,7 @@
 
 load('5state_NFISO_aamodh_25Jan.mat');
 
-t = tcpip('128.197.50.13', 3000,'NetworkRole','client');
+t = tcpip('128.197.50.79', 3000,'NetworkRole','client');
 set(t, 'InputBufferSize', 64);
 fopen(t);
 
