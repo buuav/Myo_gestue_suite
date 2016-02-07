@@ -9,7 +9,7 @@ time=clock;
 fs=200;
 
 %nor__OUT_FIST_In_spread
-while etime(clock,time)<5
+while etime(clock,time)<10
    if t1.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
         dataimu(i,:) = fscanf(t1, '%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\r\n')'; %IMU reading
@@ -28,6 +28,6 @@ save(['IMU_data/' varstr],'dataimu');
 fs=50;
 t=[1/fs:1/fs:a/fs]'
 input=horzcat(t,dataimu(:,1:6));
-initial=[euler(1,:);gyro(1,:);0 0 0];
+initial=zeros(3,3);
 output=find_position(input,initial);
 fclose(t1);

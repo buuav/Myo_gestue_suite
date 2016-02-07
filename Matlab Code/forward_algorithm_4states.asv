@@ -33,7 +33,7 @@ while etime(clock,time)<30
                 Alpha(wind,:) = Alpha(wind,:)/mean(Alpha(wind,:));
             end
             
-            [value ,mystate(wind)]= max(Alpha(wind,:));
+            [value ,mystate(wind)]= max(Alpha(wind,:))
             wind = wind + 1;
         end
         count = count + 1;
@@ -43,7 +43,7 @@ end
 fclose(t);
 varstr=horzcat(datestr(clock,30),'.mat');
 save(['C:/Users/Aamodh/Documents/ACT_BUUAV/Myo_gesture_suite/Matlab Code/EMG_accuracy_Test/2states_nF/' varstr],'Alpha','data','mystate');
-imagesc(Alpha(2:end,:)');
+imagesc(mystate');
 
 
 
