@@ -8,11 +8,11 @@ tcpipServer = tcpip('0.0.0.0',55000,'NetworkRole','Server');
 set(tcpipServer,'OutputBufferSize',8000);
 fopen(tcpipServer);
 
-t1 = tcpip('128.197.50.79', 10000,'NetworkRole','client'); % IMU port
+t1 = tcpip('128.197.50.80', 10000,'NetworkRole','client'); % IMU port
 set(t1, 'InputBufferSize', 400);
 fopen(t1);
 
-t2 = tcpip('128.197.50.79', 3000,'NetworkRole','client'); % EMG port
+t2 = tcpip('128.197.50.80', 3000,'NetworkRole','client'); % EMG port
 set(t2, 'InputBufferSize', 400);
 fopen(t2);
 i = 1;
@@ -90,7 +90,7 @@ while etime(clock,time)<200
             elseif data_EMG == 2
                 value=8; %Backward
             elseif data_EMG == 1
-                value=9; %Front_Flip
+                %value=9; %Front_Flip
             else
                 value=10; %Hover
             end
