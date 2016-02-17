@@ -1,8 +1,8 @@
 clc;
 clear;
 
-t = tcpip('128.197.50.79', 3000,'NetworkRole','client');
-set(t, 'InputBufferSize', 400);
+t = tcpip('0.0.0.0', 3000,'NetworkRole','client');
+set(t, 'InputBufferSize', 2000);
 fopen(t);
 i = 1;
 time=clock;
@@ -11,7 +11,7 @@ wsize=fs/2;
 wind = 1;
 o = 10;
 
-while etime(clock,time)<36
+while etime(clock,time)<30
     if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
         data(i,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
@@ -35,7 +35,6 @@ end
 
 fclose(t);
 
-[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,4);
-imagesc(Px');
+[Mu, R, P, p0, Px, E] = EMAlgorithm_kmeans_myo(dataStdd,2);
 varstr=horzcat(datestr(clock,30),'.mat');
-save(varstr);
+save(['C:/Users/Aamodh/Documents/ACT_BUUAV/Myo_gesture_suite/Matlab Code/EMG_accuracy_Test/2states_nF/' varstr],'Mu', 'R', 'P', 'p0', 'Px', 'E');

@@ -1,8 +1,8 @@
-
-load('20160201T132726_NFUD_aam_feb1.mat');
-t1 = tcpip('128.197.50.79', 3000,'NetworkRole','client');
-set(t1, 'InputBufferSize', 400);
-fopen(t1);
+clear;
+load('20160206T183039_t1.mat');
+t = tcpip('0.0.0.0', 3000,'NetworkRole','client');
+set(t, 'InputBufferSize', 4000);
+fopen(t);
 count = 1;
 time=clock;
 fs=200;
@@ -11,11 +11,10 @@ wind = 1;
 o = 10;
 
 %nor__OUT_FIST_In_spread
-%up_normal_fist_down
-while etime(clock,time)<200
-    if t1.BytesAvailable
+while etime(clock,time)<30
+    if t.BytesAvailable
         %data(i,:) = strsplit(fread(t),'\r\n');
-        data(count,:) = fscanf(t1, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
+        data(count,:) = fscanf(t, '%d,%d,%d,%d,%d,%d,%d,%d\r\n')';
         [m,n]=size(data);
         %mod(m,wsize)
         if ~mod(m,o) && m > 99
@@ -25,7 +24,7 @@ while etime(clock,time)<200
             %             dataAvgd=dataAvgd./256;
             dataStd(wind,:) = std(data(m-wsize+1:m,:));
             Y=dataStd(wind,:)./128;
-            norml=diag(Normal(Y',Mu, R, 4));
+            norml=diag(Normal(Y',Mu, R, 2));
             %norml=norml/max(max(norml));
             if wind==1
                 Alpha(wind,:) = norml*p0;
@@ -34,15 +33,17 @@ while etime(clock,time)<200
                 Alpha(wind,:) = Alpha(wind,:)/mean(Alpha(wind,:));
             end
             
-            [value ,mystate]= max(Alpha(wind,:))
+            [value ,mystate(wind)]= max(Alpha(wind,:))
             wind = wind + 1;
         end
         count = count + 1;
     end
 end
 
-fclose(t1);
-
+fclose(t);
+varstr=horzcat(datestr(clock,30),'.mat');
+save(['C:/Users/Aamodh/Documents/ACT_BUUAV/Myo_gesture_suite/Matlab Code/EMG_accuracy_Test/2states_nF/' varstr],'Alpha','data','mystate');
+imagesc(mystate');
 
 
 
